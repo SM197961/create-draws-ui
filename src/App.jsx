@@ -43,7 +43,7 @@ export default function App() {
         const map = {};
         (json.items || []).forEach((it) => {
           if (it && it.id !== undefined) {
-            map[it.id] = it.name || String(it.id);
+            map[String(it.id)] = it.name || String(it.id);
           }
         });
         return map;
@@ -213,7 +213,7 @@ export default function App() {
               {rows.map((r, idx) => (
                 <tr key={r.item_id} style={{ borderBottom: "1px solid rgba(0,0,0,0.12)" }}>
                   <td style={{ padding: "6px 4px" }}>
-                    {namesById[r.item_id] && namesById[r.item_id].trim() !== "" ? namesById[r.item_id] : ""}
+                    {namesById[String(r.item_id)] && namesById[String(r.item_id)].trim() !== "" ? namesById[String(r.item_id)] : ""}
                   </td>
                   <td style={{ padding: "6px 4px" }}>
                     <input
