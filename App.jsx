@@ -30,8 +30,10 @@ export default function App() {
 
     async function fetchNames(ids) {
       if (!ids || !ids.length) return {};
+      const url = "/api/item-names";
+      console.log(`Fetching names from: ${window.location.origin}${url}`);
       try {
-        const resp = await fetch("/api/item-names", {
+        const resp = await fetch(url, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -39,7 +41,14 @@ export default function App() {
           },
           body: JSON.stringify({ item_ids: ids }),
         });
+        if (!resp.ok) {
+          console.error(`Fetch error: ${resp.status} ${resp.statusText}`);
+          const errorText = await resp.text();
+          console.error(`Error response body:`, errorText);
+          throw new Error(`Failed to fetch names: ${resp.status}`);
+        }
         const json = await resp.json();
+        console.log("Received names data:", json);
         const map = {};
         (json.items || []).forEach((it) => {
           if (it && it.id !== undefined) {
@@ -49,7 +58,7 @@ export default function App() {
         });
         return map;
       } catch (e) {
-        console.error("name fetch error", e);
+        console.error("A network or other error occurred in fetchNames:", e);
         return {};
       }
     }
