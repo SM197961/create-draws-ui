@@ -31,7 +31,7 @@ export default function App() {
     async function fetchNames(ids) {
       if (!ids || !ids.length) return {};
       try {
-        const resp = await fetch(`${import.meta.env.VITE_API_BASE}/api/item-names`, {
+        const resp = await fetch("/api/item-names", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -43,7 +43,8 @@ export default function App() {
         const map = {};
         (json.items || []).forEach((it) => {
           if (it && it.id !== undefined) {
-            map[String(it.id)] = it.name || String(it.id);
+            const name = it.name ? String(it.name).trim() : "";
+            map[String(it.id)] = name || String(it.id);
           }
         });
         return map;
@@ -137,7 +138,7 @@ export default function App() {
         requested_amount: r.amount === "" ? null : Number(String(r.amount).replace(/,/g, "")),
       }));
 
-      const resp = await fetch(`${import.meta.env.VITE_API_BASE}/api/create-from-selection`, {
+      const resp = await fetch("/api/create-from-selection", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -213,7 +214,9 @@ export default function App() {
               {rows.map((r, idx) => (
                 <tr key={r.item_id} style={{ borderBottom: "1px solid rgba(0,0,0,0.12)" }}>
                   <td style={{ padding: "6px 4px" }}>
-                    {namesById[String(r.item_id)] && namesById[String(r.item_id)].trim() !== "" ? namesById[String(r.item_id)] : ""}
+                    {namesById[String(r.item_id)] && namesById[String(r.item_id)].trim() !== ""
+                      ? namesById[String(r.item_id)]
+                      : String(r.item_id)}
                   </td>
                   <td style={{ padding: "6px 4px" }}>
                     <input
