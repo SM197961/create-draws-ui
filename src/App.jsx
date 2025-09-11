@@ -208,7 +208,9 @@ export default function App() {
             <tbody>
               {rows.map((r, idx) => (
                 <tr key={r.item_id} style={{ borderBottom: "1px solid rgba(0,0,0,0.12)" }}>
-                  <td style={{ padding: "6px 4px" }}>{namesById[r.item_id] || r.item_id}</td>
+                  <td style={{ padding: "6px 4px" }}>
+                    {namesById[r.item_id] && namesById[r.item_id].trim() !== "" ? namesById[r.item_id] : ""}
+                  </td>
                   <td style={{ padding: "6px 4px" }}>
                     <input
                       type="number"
