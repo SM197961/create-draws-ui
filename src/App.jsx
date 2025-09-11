@@ -41,7 +41,11 @@ export default function App() {
         });
         const json = await resp.json();
         const map = {};
-        (json.items || []).forEach((it) => { map[it.id] = it.name; });
+        (json.items || []).forEach((it) => {
+          if (it && it.id !== undefined) {
+            map[it.id] = it.name || String(it.id);
+          }
+        });
         return map;
       } catch (e) {
         console.error("name fetch error", e);
