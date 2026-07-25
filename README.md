@@ -1,12 +1,18 @@
-# React + Vite
+# create-draws-ui
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A custom Monday.com board view for creating construction draws.  React and Vite, built on the Monday SDK, running inside Monday.com itself.  The backend is [draw-service](https://github.com/SM197961/draw-service), a FastAPI service.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Select loans on your servicing board, open this view, and create draws against them without leaving Monday.com:
 
-## Expanding the ESLint configuration
+- Reads your selected board items live through the Monday SDK context
+- Enter one amount and apply it to every selected loan, or set amounts per loan
+- One click creates all the draws through the draw-service API, with duplicate protection on the service side
+- Shows the API result for each item, with a debug panel for the raw Monday context
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Why a custom app instead of an automation
+
+Monday.com automations are good at moving statuses.  They are not good at "take these six selected loans, ask a human for six amounts, then create six linked records with the right draw numbers."  That takes an app.  This is the app.
+
+## Running it
