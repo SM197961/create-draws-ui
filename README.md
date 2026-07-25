@@ -16,3 +16,18 @@ Select loans on your servicing board, open this view, and create draws against t
 Monday.com automations are good at moving statuses.  They are not good at "take these six selected loans, ask a human for six amounts, then create six linked records with the right draw numbers."  That takes an app.  This is the app.
 
 ## Running it
+
+```
+npm install
+npm run dev
+```
+
+Set `VITE_API_AUTH` in `.env` to match the draw-service `API_AUTH_TOKEN`.  Build with `npm run build` and load the output as a board view via a Monday.com app in your account.
+
+## Stack
+
+React 19, Vite, monday-sdk-js.
+
+## Who built it
+
+[Spencer Medrano](https://ctrlcap.co/founder.html), fifteen years in private real estate lending operations.  More at [ctrlcap.co](https://ctrlcap.co).
